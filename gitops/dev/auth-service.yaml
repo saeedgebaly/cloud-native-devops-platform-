@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auth-service-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform
+    targetRevision: main
+    path: helm/auth-service
+
+    helm:
+      valuesfiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dev
+
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
