@@ -18,35 +18,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: login to azure
+        uses: azure/login@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          creds: |
+            {
+             "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+             "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+             "tenantId": "${{ secrets.AZURE_TENANT_ID }}",
+             "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+            }
 
-      - name: Extract Git SHA
+      - name: login to acr
+        run: az acr login --name devopsacr2962
+
+      - name: extract git SHA
         id: vars
-        run: echo "SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./services/auth-service
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ steps.vars.outputs.SHA }}
-
-      - name: Update helm values.yaml with new tag
+      - name: build and push image
         run: |
-          sed -i "s/tag:.*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/auth-service/values.yaml
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add helm/auth-service/values.yaml
-          git commit -m "ci: update image tag to ${{ steps.vars.outputs.SHA }}"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
+          docker build -t devopsacr2962.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }} ./services/auth-service
+          docker push devopsacr2962.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }}
