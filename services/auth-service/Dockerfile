@@ -10,7 +10,7 @@ COPY src ./src
 
 
 # build type script
-RUN npx tsc
+RUN npm run build
 
 # ------- Runner Image -------
 FROM node:20-alpine
