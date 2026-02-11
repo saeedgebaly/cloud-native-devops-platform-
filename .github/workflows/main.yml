@@ -1,5 +1,8 @@
 name: auth-service CI
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -46,4 +49,4 @@ jobs:
           git config user.email "github-actions@github.com"
           git add helm/auth-service/values.yaml
           git commit -m "ci: update image tag to ${{ steps.vars.outputs.SHA }}"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
