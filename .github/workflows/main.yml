@@ -35,3 +35,15 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ steps.vars.outputs.SHA }}
+
+      - name: Update helm values.yaml with new tag
+        run: |
+          sed -i "s/tag:.*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/auth-service/values.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add helm/auth-service/values.yaml
+          git commit -m "ci: update image tag to ${{ steps.vars.outputs.SHA }}"
+          git push
