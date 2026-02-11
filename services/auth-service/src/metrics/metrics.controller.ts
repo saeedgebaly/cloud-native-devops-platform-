@@ -1,13 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
+import { Response } from 'express';
+import { register } from './metrics.service';
 
 @Controller('metrics')
 export class MetricsController {
-    @Get()
-    metrics() {
-        return `
-# HELP auth_service_up Auth service is up
-# TYPE auth_service_up gauge
-auth_service_up 1
-`;
-    }
+  @Get()
+  async metrics(@Res() res: Response) {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+  }
 }
