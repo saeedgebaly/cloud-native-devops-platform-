@@ -55,6 +55,6 @@ jobs:
 
           sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/core-service/values.yaml
 
-          git add helm/core-service/values.yaml
+          git add helm/core-service/values-dev.yaml
           git commit -m "Update core-service image tag to ${{ steps.vars.outputs.SHA }}"
           git push origin main

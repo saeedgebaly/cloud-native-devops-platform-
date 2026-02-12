@@ -1,4 +1,4 @@
-# Default values for core-service.
+# Default values for auth-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -7,7 +7,7 @@ replicaCount: 1
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: devopsacr28737.azurecr.io/core-service
+  repository: devopsacr28737.azurecr.io/auth-service
   # This sets the pull policy for images.
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
@@ -29,7 +29,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "core-service-sa"
+  name: "auth-service-sa"
 
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
@@ -69,7 +69,7 @@ ingress:
           pathType: Prefix
           backend:
             service:
-              name: core-service
+              name: auth-service-dev
               port:
                 number: 3000
   tls: []
