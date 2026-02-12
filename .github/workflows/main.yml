@@ -43,18 +43,5 @@ jobs:
 
       - name: build and push image
         run: |
-          docker build -t devopsacr28737.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }} ./services/auth-service
-          docker push devopsacr28737.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }}
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          git pull origin main --rebase
-
-          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/auth-service/values.yaml
-
-          git add helm/auth-service/values-dev.yaml
-          git commit -m "Update auth-service image tag to ${{ steps.vars.outputs.SHA }}"
-          git push origin main
+          docker build -t devopsacr28737.azurecr.io/auth-service:latest ./services/auth-service
+          docker push devopsacr28737.azurecr.io/auth-service:latest

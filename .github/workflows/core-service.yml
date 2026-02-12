@@ -43,8 +43,8 @@ jobs:
 
       - name: build and push image
         run: |
-          docker build -t devopsacr28737.azurecr.io/core-service:${{ steps.vars.outputs.SHA }} ./services/core-service
-          docker push devopsacr28737.azurecr.io/core-service:${{ steps.vars.outputs.SHA }}
+          docker build -t devopsacr28737.azurecr.io/core-service:latest ./services/core-service
+          docker push devopsacr28737.azurecr.io/core-service:latest
 
       - name: Commit and push changes
         run: |
