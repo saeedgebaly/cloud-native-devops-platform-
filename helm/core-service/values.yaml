@@ -69,7 +69,7 @@ ingress:
           pathType: Prefix
           backend:
             service:
-              name: auth-service-dev
+              name: core-service
               port:
                 number: 3000
   tls: []
