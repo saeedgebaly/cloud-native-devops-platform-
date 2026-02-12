@@ -29,8 +29,12 @@ jobs:
              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
             }
 
-      - name: login to acr
-        run: az acr login --name devopsacr2962
+      - name: login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: devopsacr28737.azurecr.io
+          username: ${{ secrets.AZURE_CLIENT_ID }}
+          password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: extract git SHA
         id: vars
@@ -38,5 +42,17 @@ jobs:
 
       - name: build and push image
         run: |
-          docker build -t devopsacr2962.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }} ./services/auth-service
-          docker push devopsacr2962.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }}
+          docker build -t devopsacr28737.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }} ./services/auth-service
+          docker push devopsacr28737.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }}
+
+      - name: Update Helm values
+        run: |
+          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/auth-service/values.yaml
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add helm/auth-service/values.yaml
+          git commit -m "Update auth-service image tag to ${{ steps.vars.outputs.SHA }}"
+          git push
