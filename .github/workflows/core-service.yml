@@ -1,0 +1,59 @@
+name: core-service CI
+
+permissions:
+    contents: write
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - "services/core-service/**"
+            - "helm/core-service/**"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: login to azure
+              uses: azure/login@v2
+              with:
+                  creds: |
+                      {
+                       "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+                       "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+                       "tenantId": "${{ secrets.AZURE_TENANT_ID }}",
+                       "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+                      }
+
+            - name: login to ACR
+              uses: docker/login-action@v3
+              with:
+                  registry: devopsacr28737.azurecr.io
+                  username: ${{ secrets.AZURE_CLIENT_ID }}
+                  password: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+            - name: extract git SHA
+              id: vars
+              run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+            - name: build and push image
+              run: |
+                  docker build -t devopsacr28737.azurecr.io/core-service:${{ steps.vars.outputs.SHA }} ./services/core-service
+                  docker push devopsacr28737.azurecr.io/core-service:${{ steps.vars.outputs.SHA }}
+
+            - name: Update Helm values
+              run: |
+                  sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/core-service/values.yaml
+
+            - name: Commit and push changes
+              run: |
+                  git config user.name "github-actions"
+                  git config user.email "github-actions@github.com"
+                  git add helm/core-service/values.yaml
+                  git commit -m "Update core-service image tag to ${{ steps.vars.outputs.SHA }}"
+                  git push
