@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - "services/auth-service/**"
+      - "helm/auth-service/**"
 
 jobs:
   build:
