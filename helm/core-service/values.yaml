@@ -5,6 +5,9 @@
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
+env:
+  - name: AUTH_SERVICE_URL
+    value: http://auth-service-dev:3000
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: devopsacr3755.azurecr.io/core-service
