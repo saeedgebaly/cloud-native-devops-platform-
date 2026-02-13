@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: auth-service-prod
+  name: core-service-prod
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
-    targetRevision: release-1.0
-    path: helm/auth-service
+    targetRevision: main
+    path: helm/core-service
     helm:
       valueFiles:
         - values.yaml
@@ -19,5 +19,6 @@ spec:
     namespace: prod
 
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true

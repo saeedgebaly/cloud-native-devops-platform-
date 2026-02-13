@@ -9,6 +9,10 @@ spec:
     repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
     targetRevision: main
     path: helm/auth-service
+    helm:
+      valueFiles:
+        - values.yaml
+        - values-staging.yaml
 
   destination:
     server: https://kubernetes.default.svc
