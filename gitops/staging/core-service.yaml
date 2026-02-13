@@ -18,7 +18,4 @@ spec:
     server: https://kubernetes.default.svc
     namespace: staging
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}

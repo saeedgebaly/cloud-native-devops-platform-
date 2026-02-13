@@ -4,12 +4,26 @@ import axios from 'axios';
 @Controller('core')
 export class CoreController {
 
+    private async callAuthWithRetry(retries = 2) {
+        const authUrl = process.env.AUTH_SERVICE_URL;
+
+        for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+                return await axios.get(`${authUrl}/auth/ping`, {
+                    timeout: 2000,
+                });
+            } catch (error) {
+                if (attempt === retries) {
+                    throw error;
+                }
+            }
+        }
+    }
+
     @Get('check-auth')
     async checkAuth() {
         try {
-            const authUrl = process.env.AUTH_SERVICE_URL;
-
-            const response = await axios.get(`${authUrl}/auth/ping`);
+            const response = await this.callAuthWithRetry();
 
             return {
                 message: 'Core service successfully contacted auth-service',
@@ -18,8 +32,8 @@ export class CoreController {
 
         } catch (error: any) {
             return {
-                error: 'Failed to contact auth-service',
-                details: error.message,
+                message: 'Auth service unavailable',
+                degradedMode: true,
             };
         }
     }
