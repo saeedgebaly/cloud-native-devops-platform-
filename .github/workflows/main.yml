@@ -33,7 +33,7 @@ jobs:
       - name: login to ACR
         uses: docker/login-action@v3
         with:
-          registry: devopsacr28737.azurecr.io
+          registry: devopsacr3755.azurecr.io
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
@@ -43,5 +43,5 @@ jobs:
 
       - name: build and push image
         run: |
-          docker build -t devopsacr28737.azurecr.io/auth-service:latest ./services/auth-service
-          docker push devopsacr28737.azurecr.io/auth-service:latest
+          docker build -t devopsacr3755.azurecr.io/auth-service:latest ./services/auth-service
+          docker push devopsacr3755.azurecr.io/auth-service:latest
