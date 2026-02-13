@@ -4,6 +4,8 @@ metadata:
   name: {{ include "core-service.fullname" . }}
   labels:
     {{- include "core-service.labels" . | nindent 4 }}
+
+
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -45,6 +47,8 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           {{- with .Values.livenessProbe }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}

@@ -7,9 +7,9 @@ export class CoreController {
     @Get('check-auth')
     async checkAuth() {
         try {
-            const response = await axios.get(
-                'http://auth-service:3000/auth/ping'
-            );
+            const authUrl = process.env.AUTH_SERVICE_URL;
+
+            const response = await axios.get(`${authUrl}/auth/ping`);
 
             return {
                 message: 'Core service successfully contacted auth-service',
