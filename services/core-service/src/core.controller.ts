@@ -5,20 +5,28 @@ import axios from 'axios';
 export class CoreController {
 
     private async callAuthWithRetry(retries = 2) {
-        const authUrl = process.env.AUTH_SERVICE_URL;
+        const baseUrl = process.env.AUTH_SERVICE_URL;
+        if (!baseUrl) throw new Error('AUTH_SERVICE_URL not defined');
 
-        for (let attempt = 0; attempt <= retries; attempt++) {
+        const url = `${baseUrl}/auth/ping`;
+
+        let lastError: any;
+
+        for (let i = 0; i <= retries; i++) {
             try {
-                return await axios.get(`${authUrl}/auth/ping`, {
-                    timeout: 2000,
-                });
+                return await axios.get(url, { timeout: 2000 });
             } catch (error) {
-                if (attempt === retries) {
-                    throw error;
+                lastError = error;
+
+                if (i < retries) {
+                    await new Promise(res => setTimeout(res, 500 * (i + 1)));
                 }
             }
         }
+
+        throw lastError;
     }
+
 
     @Get('check-auth')
     async checkAuth() {
