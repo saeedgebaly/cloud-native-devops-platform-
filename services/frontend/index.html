@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cloud Native Platform</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Cloud Native DevOps Platform</h1>
+
+    <button onclick="checkAuth()">Check Auth Service</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function checkAuth() {
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerText = "Loading...";
+
+            try {
+                const response = await fetch("/core/check-auth");
+                const data = await response.json();
+                resultDiv.innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.innerText = "Error contacting backend";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
