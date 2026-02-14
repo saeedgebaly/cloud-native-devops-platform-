@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/saeed-devops/cloud-native-devops-platform-
+    repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
     targetRevision: main
     path: helm/frontend
     helm:
