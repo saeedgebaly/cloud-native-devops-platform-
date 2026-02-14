@@ -66,8 +66,27 @@ ingress:
   hosts:
     - host: 52.174.76.163.nip.io
       paths:
+        - path: /auth
+          pathType: Prefix
+          backend:
+            service:
+              name: auth-service-dev
+              port:
+                number: 3000
+        - path: /core
+          pathType: Prefix
+          backend:
+            service:
+              name: core-service-dev
+              port:
+                number: 3000
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: frontend-dev
+              port:
+                number: 80
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
