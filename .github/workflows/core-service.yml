@@ -47,15 +47,12 @@ jobs:
           docker build -t devopsacr26349.azurecr.io/core-service:${{ steps.vars.outputs.SHA }} ./services/core-service
           docker push devopsacr26349.azurecr.io/core-service:${{ steps.vars.outputs.SHA }}
 
-      - name: update image tag in values-dev.yaml
-        run: |
-          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/core-service/values-dev.yaml
-
       - name: commit and push changes
         run: |
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
           git pull origin main --rebase
+          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/core-service/values-dev.yaml
           git add helm/core-service/values-dev.yaml
           git diff --cached --quiet || git commit -m "Update core-service image tag to ${{ steps.vars.outputs.SHA }}"
           git push origin main
