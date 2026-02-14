@@ -1,12 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: frontend
+  name: frontend-dev
   namespace: argocd
 spec:
   destination:
-    namespace: dev
     server: https://kubernetes.default.svc
+    namespace: dev
   project: default
   source:
     repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-

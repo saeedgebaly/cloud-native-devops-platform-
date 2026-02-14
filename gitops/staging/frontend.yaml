@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: core-service-staging
+  name: frontend-staging
   namespace: argocd
 spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
   project: default
   source:
     repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
     targetRevision: staging
-    path: helm/core-service
+    path: helm/frontend
     helm:
       valueFiles:
         - values.yaml
         - values-staging.yaml
-
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: staging
-
   syncPolicy: {}

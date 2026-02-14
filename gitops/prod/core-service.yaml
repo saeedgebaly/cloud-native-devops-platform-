@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
-    targetRevision: main
+    targetRevision: prod
     path: helm/core-service
     helm:
       valueFiles:

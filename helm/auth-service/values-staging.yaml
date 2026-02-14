@@ -61,12 +61,14 @@ service:
 ingress:
   enabled: true
   className: "nginx"
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
-    - host: 52.174.76.163.nip.io
+    - host: staging.52.174.76.163.nip.io
       paths:
-        - path: /
-          pathType: Prefix
+        - path: /auth(/|$)(.*)
+          pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

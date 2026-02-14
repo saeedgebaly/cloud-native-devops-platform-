@@ -64,29 +64,11 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: 52.174.76.163.nip.io
+    - host: dev.52.174.76.163.nip.io
       paths:
-        - path: /auth
-          pathType: Prefix
-          backend:
-            service:
-              name: auth-service-dev
-              port:
-                number: 3000
-        - path: /core
-          pathType: Prefix
-          backend:
-            service:
-              name: core-service-dev
-              port:
-                number: 3000
         - path: /
           pathType: Prefix
-          backend:
-            service:
-              name: frontend-dev
-              port:
-                number: 80
+
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -130,17 +112,17 @@ httpRoute:
   #     - name: version
   #       value: v2
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 64Mi
 
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:

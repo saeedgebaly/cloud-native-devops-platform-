@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - main
+      - staging
+      - prod
     paths:
       - "services/auth-service/**"
 
@@ -51,8 +53,18 @@ jobs:
         run: |
           git config user.email "github-actions@github.com"
           git config user.name "github-actions"
-          git pull origin main --rebase
-          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" helm/auth-service/values-dev.yaml
-          git add helm/auth-service/values-dev.yaml
+
+          BRANCH=${GITHUB_REF##*/}
+
+          if [ "$BRANCH" = "main" ]; then
+            VALUES_FILE="helm/auth-service/values-dev.yaml"
+          elif [ "$BRANCH" = "staging" ]; then
+            VALUES_FILE="helm/auth-service/values-staging.yaml"
+          elif [ "$BRANCH" = "prod" ]; then
+            VALUES_FILE="helm/auth-service/values-prod.yaml"
+          fi
+          git pull origin $BRANCH --rebase
+          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" $VALUES_FILE
+          git add $VALUES_FILE
           git diff --cached --quiet || git commit -m "Update auth-service image tag to ${{ steps.vars.outputs.SHA }}"
-          git push origin main
+          git push origin $BRANCH

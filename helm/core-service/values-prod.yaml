@@ -63,9 +63,9 @@ ingress:
   className: "nginx"
   annotations: {}
   hosts:
-    - host: 52.174.76.163.nip.io
+    - host: api.52.174.76.163.nip.io
       paths:
-        - path: /
+        - path: /core
           pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
