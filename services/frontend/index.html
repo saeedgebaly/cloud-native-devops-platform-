@@ -42,7 +42,12 @@
             resultDiv.innerText = "Loading...";
 
             try {
-                const response = await fetch("/core/check-auth");
+                const response = await fetch("/core/check-auth", {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
                 const data = await response.json();
                 resultDiv.innerText = JSON.stringify(data, null, 2);
             } catch (error) {
