@@ -18,12 +18,15 @@ export class CoreController {
             try {
                 return await axios.get(url, { timeout: 2000 });
             } catch (error) {
-                lastError = error;
+                const message =
+                    error instanceof Error ? error.message : 'Unknown error';
 
-                if (i < retries) {
-                    await new Promise(res => setTimeout(res, 500 * (i + 1)));
-                }
+                return {
+                    message: 'Database connection failed',
+                    error: message,
+                };
             }
+
         }
 
         throw lastError;
