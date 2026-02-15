@@ -1,5 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import axios from 'axios';
+import { Client } from 'pg';
+
 
 @Controller('core')
 export class CoreController {
@@ -25,6 +27,27 @@ export class CoreController {
         }
 
         throw lastError;
+    }
+
+    @Get('db-check')
+    async dbCheck() {
+        const client = new Client({
+            host: process.env.DATABASE_HOST,
+            port: Number(process.env.DATABASE_PORT),
+            user: process.env.DATABASE_USER,
+            password: process.env.DATABASE_PASSWORD,
+            database: process.env.DATABASE_NAME,
+        });
+
+        await client.connect();
+
+        const result = await client.query('SELECT NOW()');
+
+        await client.end();
+
+        return {
+            dbTime: result.rows[0],
+        };
     }
 
 
