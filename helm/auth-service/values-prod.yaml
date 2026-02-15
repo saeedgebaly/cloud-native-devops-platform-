@@ -7,7 +7,7 @@ replicaCount: 3
 
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
-  repository: devopsacr26349.azurecr.io/auth-service
+  repository: devopsacr24319.azurecr.io/auth-service
   # This sets the pull policy for images.
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
@@ -65,7 +65,7 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
-    - host: api.52.174.76.163.nip.io
+    - host: api.20.23.75.20.nip.io
       paths:
         - path: /auth(/|$)(.*)
           pathType: ImplementationSpecific

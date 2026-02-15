@@ -1,0 +1,2065 @@
+apiVersion: v1
+items:
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"auth-service-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"dev","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-dev.yaml"]},"path":"helm/auth-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-02-14T13:15:06Z"
+    generation: 150
+    name: auth-service-dev
+    namespace: argocd
+    resourceVersion: "122516"
+    uid: f19f1cb9-e035-45e7-823c-82fbdc50d2b7
+  spec:
+    destination:
+      namespace: dev
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-dev.yaml
+      path: helm/auth-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T17:45:18Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T13:15:09Z"
+      deployedAt: "2026-02-14T13:15:10Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 90b445f217d977ae4e28fd58a9d1b789a48410ce
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    - deployStartedAt: "2026-02-14T15:47:03Z"
+      deployedAt: "2026-02-14T15:47:03Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 8512b1f2bf2e81798a61fc8567b49b03eeac4b4b
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    - deployStartedAt: "2026-02-14T17:44:55Z"
+      deployedAt: "2026-02-14T17:44:56Z"
+      id: 2
+      initiatedBy:
+        automated: true
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-02-14T17:44:56Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-dev.yaml
+            path: helm/auth-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: main
+      phase: Succeeded
+      startedAt: "2026-02-14T17:44:55Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/auth-network-policy unchanged
+          name: auth-network-policy
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/auth-service-sa unchanged
+          name: auth-service-sa
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/auth-service-role reconciled. role.rbac.authorization.k8s.io/auth-service-role
+            unchanged
+          name: auth-service-role
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/auth-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/auth-service-binding unchanged
+          name: auth-service-binding
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/auth-service-dev unchanged
+          name: auth-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/auth-service:6794204
+          kind: Deployment
+          message: deployment.apps/auth-service-dev configured
+          name: auth-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/auth-service-dev created
+          name: auth-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+    reconciledAt: "2026-02-14T19:22:55Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: auth-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: auth-service-sa
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: auth-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: auth-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: auth-network-policy
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: auth-service-role
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: auth-service-binding
+      namespace: dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://dev.52.174.76.163.nip.io/auth(/|$)(.*)
+      images:
+      - devopsacr26349.azurecr.io/auth-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: dev
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"auth-service-prod","namespace":"argocd"},"spec":{"destination":{"namespace":"prod","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-prod.yaml"]},"path":"helm/auth-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"prod"},"syncPolicy":{"syncOptions":["CreateNamespace=true"]}}}
+    creationTimestamp: "2026-02-14T13:15:27Z"
+    generation: 164
+    name: auth-service-prod
+    namespace: argocd
+    resourceVersion: "122477"
+    uid: 00384a8c-5c52-47e5-b370-e2d51a3be2d2
+  spec:
+    destination:
+      namespace: prod
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-prod.yaml
+      path: helm/auth-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: prod
+    syncPolicy:
+      syncOptions:
+      - CreateNamespace=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T18:26:10Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:49:43Z"
+      deployedAt: "2026-02-14T17:49:43Z"
+      id: 0
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:17:59Z"
+      deployedAt: "2026-02-14T18:17:59Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:18:06Z"
+      deployedAt: "2026-02-14T18:18:06Z"
+      id: 2
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:21:58Z"
+      deployedAt: "2026-02-14T18:21:59Z"
+      id: 3
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:25:56Z"
+      deployedAt: "2026-02-14T18:25:57Z"
+      id: 4
+      initiatedBy:
+        username: admin
+      revision: a3921c520a110132ba6716f7461c435a13ce020c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    operationState:
+      finishedAt: "2026-02-14T18:25:57Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: a3921c520a110132ba6716f7461c435a13ce020c
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-prod.yaml
+            path: helm/auth-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: prod
+          syncOptions:
+          - CreateNamespace=true
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2026-02-14T18:25:56Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/auth-network-policy unchanged
+          name: auth-network-policy
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/auth-service-sa unchanged
+          name: auth-service-sa
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/auth-service-role reconciled. role.rbac.authorization.k8s.io/auth-service-role
+            unchanged
+          name: auth-service-role
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/auth-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/auth-service-binding unchanged
+          name: auth-service-binding
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/auth-service-prod unchanged
+          name: auth-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/auth-service:6794204
+          kind: Deployment
+          message: deployment.apps/auth-service-prod configured
+          name: auth-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/auth-service-prod unchanged
+          name: auth-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: a3921c520a110132ba6716f7461c435a13ce020c
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+    reconciledAt: "2026-02-14T19:22:47Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: auth-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: auth-service-sa
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: auth-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: auth-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: auth-network-policy
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: auth-service-role
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: auth-service-binding
+      namespace: prod
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://api.52.174.76.163.nip.io/auth(/|$)(.*)
+      images:
+      - devopsacr26349.azurecr.io/auth-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: prod
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+      revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"auth-service-staging","namespace":"argocd"},"spec":{"destination":{"namespace":"staging","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-staging.yaml"]},"path":"helm/auth-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"staging"},"syncPolicy":{}}}
+    creationTimestamp: "2026-02-14T13:15:55Z"
+    generation: 166
+    name: auth-service-staging
+    namespace: argocd
+    resourceVersion: "122499"
+    uid: fa02b04a-a92a-4640-9ba5-6506c05a0de1
+  spec:
+    destination:
+      namespace: staging
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-staging.yaml
+      path: helm/auth-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: staging
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T18:20:09Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T13:21:38Z"
+      deployedAt: "2026-02-14T13:21:38Z"
+      id: 0
+      initiatedBy:
+        username: admin
+      revision: 90b445f217d977ae4e28fd58a9d1b789a48410ce
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    - deployStartedAt: "2026-02-14T17:49:56Z"
+      deployedAt: "2026-02-14T17:49:56Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T18:20:00Z"
+      deployedAt: "2026-02-14T18:20:01Z"
+      id: 2
+      initiatedBy:
+        username: admin
+      revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/auth-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    operationState:
+      finishedAt: "2026-02-14T18:20:01Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-staging.yaml
+            path: helm/auth-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: staging
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2026-02-14T18:20:00Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/auth-network-policy unchanged
+          name: auth-network-policy
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/auth-service-sa unchanged
+          name: auth-service-sa
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/auth-service-role reconciled. role.rbac.authorization.k8s.io/auth-service-role
+            unchanged
+          name: auth-service-role
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/auth-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/auth-service-binding unchanged
+          name: auth-service-binding
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/auth-service-staging unchanged
+          name: auth-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/auth-service:6794204
+          kind: Deployment
+          message: deployment.apps/auth-service-staging configured
+          name: auth-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/auth-service-staging unchanged
+          name: auth-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+    reconciledAt: "2026-02-14T19:22:51Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: auth-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: auth-service-sa
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: auth-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: auth-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: auth-network-policy
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: auth-service-role
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: auth-service-binding
+      namespace: staging
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://staging.52.174.76.163.nip.io/auth(/|$)(.*)
+      images:
+      - devopsacr26349.azurecr.io/auth-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: staging
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/auth-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+      revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"core-service-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"dev","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-dev.yaml"]},"path":"helm/core-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-02-14T13:20:46Z"
+    generation: 149
+    name: core-service-dev
+    namespace: argocd
+    resourceVersion: "122402"
+    uid: 4d9a6287-c7c9-4674-a2d2-7c457accf25c
+  spec:
+    destination:
+      namespace: dev
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-dev.yaml
+      path: helm/core-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T17:45:18Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T13:20:46Z"
+      deployedAt: "2026-02-14T13:20:47Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 90b445f217d977ae4e28fd58a9d1b789a48410ce
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    - deployStartedAt: "2026-02-14T15:44:41Z"
+      deployedAt: "2026-02-14T15:44:42Z"
+      id: 1
+      initiatedBy:
+        automated: true
+      revision: 8512b1f2bf2e81798a61fc8567b49b03eeac4b4b
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    - deployStartedAt: "2026-02-14T17:44:36Z"
+      deployedAt: "2026-02-14T17:44:36Z"
+      id: 2
+      initiatedBy:
+        automated: true
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-02-14T17:44:36Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-dev.yaml
+            path: helm/core-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: main
+      phase: Succeeded
+      startedAt: "2026-02-14T17:44:36Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/core-network-policy unchanged
+          name: core-network-policy
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/core-service-sa unchanged
+          name: core-service-sa
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/core-service-role reconciled. role.rbac.authorization.k8s.io/core-service-role
+            unchanged
+          name: core-service-role
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/core-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/core-service-binding unchanged
+          name: core-service-binding
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/core-service-dev unchanged
+          name: core-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/core-service:6794204
+          kind: Deployment
+          message: deployment.apps/core-service-dev configured
+          name: core-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/core-service-dev created
+          name: core-service-dev
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+    reconciledAt: "2026-02-14T19:22:30Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: core-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: core-service-sa
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: core-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: core-service-dev
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: core-network-policy
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: core-service-role
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: core-service-binding
+      namespace: dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://dev.52.174.76.163.nip.io/core
+      images:
+      - devopsacr26349.azurecr.io/core-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: dev
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"core-service-prod","namespace":"argocd"},"spec":{"destination":{"namespace":"prod","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-prod.yaml"]},"path":"helm/core-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"prod"},"syncPolicy":{"syncOptions":["CreateNamespace=true"]}}}
+    creationTimestamp: "2026-02-14T13:15:46Z"
+    generation: 161
+    name: core-service-prod
+    namespace: argocd
+    resourceVersion: "122605"
+    uid: 7a51e762-acf3-44ee-b2d2-8285ba9e3663
+  spec:
+    destination:
+      namespace: prod
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-prod.yaml
+      path: helm/core-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: prod
+    syncPolicy:
+      syncOptions:
+      - CreateNamespace=true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T19:01:00Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:50:30Z"
+      deployedAt: "2026-02-14T17:50:30Z"
+      id: 0
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:26:22Z"
+      deployedAt: "2026-02-14T18:26:22Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: a3921c520a110132ba6716f7461c435a13ce020c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:51:52Z"
+      deployedAt: "2026-02-14T18:51:53Z"
+      id: 2
+      initiatedBy:
+        username: admin
+      revision: 4ff94187b55f7ce0dac314751dc168521cd31a2e
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T19:00:47Z"
+      deployedAt: "2026-02-14T19:00:47Z"
+      id: 3
+      initiatedBy:
+        username: admin
+      revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    operationState:
+      finishedAt: "2026-02-14T19:00:47Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-prod.yaml
+            path: helm/core-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: prod
+          syncOptions:
+          - CreateNamespace=true
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2026-02-14T19:00:47Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/core-network-policy unchanged
+          name: core-network-policy
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/core-service-sa unchanged
+          name: core-service-sa
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/core-service-role reconciled. role.rbac.authorization.k8s.io/core-service-role
+            unchanged
+          name: core-service-role
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/core-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/core-service-binding unchanged
+          name: core-service-binding
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/core-service-prod unchanged
+          name: core-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/core-service:6794204
+          kind: Deployment
+          message: deployment.apps/core-service-prod configured
+          name: core-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/core-service-prod unchanged
+          name: core-service-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+    reconciledAt: "2026-02-14T19:23:09Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: core-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: core-service-sa
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: core-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: core-service-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: core-network-policy
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: core-service-role
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: core-service-binding
+      namespace: prod
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://api.52.174.76.163.nip.io/core
+      images:
+      - devopsacr26349.azurecr.io/core-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: prod
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+      revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"core-service-staging","namespace":"argocd"},"spec":{"destination":{"namespace":"staging","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-staging.yaml"]},"path":"helm/core-service","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"staging"},"syncPolicy":{}}}
+    creationTimestamp: "2026-02-14T17:49:08Z"
+    generation: 71
+    name: core-service-staging
+    namespace: argocd
+    resourceVersion: "122384"
+    uid: 39221eb0-9403-4a83-9129-350576d3f94b
+  spec:
+    destination:
+      namespace: staging
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-staging.yaml
+      path: helm/core-service
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: staging
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T19:00:38Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:50:40Z"
+      deployedAt: "2026-02-14T17:50:41Z"
+      id: 0
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T18:20:50Z"
+      deployedAt: "2026-02-14T18:20:51Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T18:26:41Z"
+      deployedAt: "2026-02-14T18:26:42Z"
+      id: 2
+      initiatedBy:
+        username: admin
+      revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T18:45:03Z"
+      deployedAt: "2026-02-14T18:45:03Z"
+      id: 3
+      initiatedBy:
+        username: admin
+      revision: 0e4a7b9019e7120b306f3346851ac75262bb6fd6
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T19:00:30Z"
+      deployedAt: "2026-02-14T19:00:31Z"
+      id: 4
+      initiatedBy:
+        username: admin
+      revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/core-service
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    operationState:
+      finishedAt: "2026-02-14T19:00:31Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-staging.yaml
+            path: helm/core-service
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: staging
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2026-02-14T19:00:30Z"
+      syncResult:
+        resources:
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: NetworkPolicy
+          message: networkpolicy.networking.k8s.io/core-network-policy unchanged
+          name: core-network-policy
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/core-service-sa unchanged
+          name: core-service-sa
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: Role
+          message: role.rbac.authorization.k8s.io/core-service-role reconciled. role.rbac.authorization.k8s.io/core-service-role
+            unchanged
+          name: core-service-role
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: rbac.authorization.k8s.io
+          hookPhase: Running
+          kind: RoleBinding
+          message: rolebinding.rbac.authorization.k8s.io/core-service-binding reconciled.
+            rolebinding.rbac.authorization.k8s.io/core-service-binding unchanged
+          name: core-service-binding
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/core-service-staging unchanged
+          name: core-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/core-service:6794204
+          kind: Deployment
+          message: deployment.apps/core-service-staging configured
+          name: core-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/core-service-staging unchanged
+          name: core-service-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+    reconciledAt: "2026-02-14T19:22:27Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: core-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: core-service-sa
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: core-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: core-service-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: NetworkPolicy
+      name: core-network-policy
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: Role
+      name: core-service-role
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: rbac.authorization.k8s.io
+      kind: RoleBinding
+      name: core-service-binding
+      namespace: staging
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://staging.52.174.76.163.nip.io/core
+      images:
+      - devopsacr26349.azurecr.io/core-service:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: staging
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/core-service
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+      revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"frontend","namespace":"argocd"},"spec":{"destination":{"namespace":"dev","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-dev.yaml"]},"path":"helm/frontend","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-02-14T15:01:47Z"
+    generation: 154
+    name: frontend
+    namespace: argocd
+    resourceVersion: "122905"
+    uid: f2d02553-95ec-43f0-876c-4096db8e64b9
+  spec:
+    destination:
+      namespace: dev
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-dev.yaml
+      path: helm/frontend
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: main
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T17:46:18Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:46:17Z"
+      deployedAt: "2026-02-14T17:46:17Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-dev.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: main
+    operationState:
+      finishedAt: "2026-02-14T17:46:17Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-dev.yaml
+            path: helm/frontend
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: main
+      phase: Succeeded
+      startedAt: "2026-02-14T17:46:17Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/frontend unchanged
+          name: frontend
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/frontend unchanged
+          name: frontend
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/frontend:6794204
+          kind: Deployment
+          message: deployment.apps/frontend configured
+          name: frontend
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/frontend created
+          name: frontend
+          namespace: dev
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+    reconciledAt: "2026-02-14T19:24:11Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: frontend
+      namespace: dev
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: frontend
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: frontend
+      namespace: dev
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: frontend
+      namespace: dev
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://dev.52.174.76.163.nip.io/
+      images:
+      - devopsacr26349.azurecr.io/frontend:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: dev
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-dev.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: main
+      revision: 7399847c3ae0e26ac6f95a96af4d54fee5b30e87
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"frontend-prod","namespace":"argocd"},"spec":{"destination":{"namespace":"prod","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-prod.yaml"]},"path":"helm/frontend","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"prod"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}
+    creationTimestamp: "2026-02-14T17:48:55Z"
+    generation: 60
+    name: frontend-prod
+    namespace: argocd
+    resourceVersion: "122585"
+    uid: 426ca738-b25c-443d-959c-ccdf0771ca57
+  spec:
+    destination:
+      namespace: prod
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-prod.yaml
+      path: helm/frontend
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: prod
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T18:26:51Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:48:55Z"
+      deployedAt: "2026-02-14T17:48:56Z"
+      id: 0
+      initiatedBy:
+        automated: true
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T17:51:08Z"
+      deployedAt: "2026-02-14T17:51:09Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:22:14Z"
+      deployedAt: "2026-02-14T18:22:14Z"
+      id: 2
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    - deployStartedAt: "2026-02-14T18:26:49Z"
+      deployedAt: "2026-02-14T18:26:50Z"
+      id: 3
+      initiatedBy:
+        automated: true
+      revision: a3921c520a110132ba6716f7461c435a13ce020c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-prod.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: prod
+    operationState:
+      finishedAt: "2026-02-14T18:26:50Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          automated: true
+        retry:
+          limit: 5
+        sync:
+          prune: true
+          revision: a3921c520a110132ba6716f7461c435a13ce020c
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-prod.yaml
+            path: helm/frontend
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: prod
+      phase: Succeeded
+      startedAt: "2026-02-14T18:26:49Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/frontend-prod unchanged
+          name: frontend-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/frontend-prod unchanged
+          name: frontend-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/frontend:6794204
+          kind: Deployment
+          message: deployment.apps/frontend-prod configured
+          name: frontend-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/frontend-prod unchanged
+          name: frontend-prod
+          namespace: prod
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: a3921c520a110132ba6716f7461c435a13ce020c
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+    reconciledAt: "2026-02-14T19:23:06Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: frontend-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: frontend-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: frontend-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: frontend-prod
+      namespace: prod
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://api.52.174.76.163.nip.io/
+      images:
+      - devopsacr26349.azurecr.io/frontend:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: prod
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-prod.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: prod
+      revision: ede397875e0d3aa22fe59f7c416fe001e4090bda
+      status: Synced
+- apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"frontend-staging","namespace":"argocd"},"spec":{"destination":{"namespace":"staging","server":"https://kubernetes.default.svc"},"project":"default","source":{"helm":{"valueFiles":["values.yaml","values-staging.yaml"]},"path":"helm/frontend","repoURL":"https://github.com/saeedgebaly/cloud-native-devops-platform-","targetRevision":"staging"},"syncPolicy":{}}}
+    creationTimestamp: "2026-02-14T17:49:13Z"
+    generation: 49
+    name: frontend-staging
+    namespace: argocd
+    resourceVersion: "122391"
+    uid: fd161be4-8686-465f-b76c-f4fc35070f9c
+  spec:
+    destination:
+      namespace: staging
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+        - values-staging.yaml
+      path: helm/frontend
+      repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+      targetRevision: staging
+  status:
+    controllerNamespace: argocd
+    health:
+      lastTransitionTime: "2026-02-14T18:20:33Z"
+      status: Healthy
+    history:
+    - deployStartedAt: "2026-02-14T17:51:17Z"
+      deployedAt: "2026-02-14T17:51:18Z"
+      id: 0
+      initiatedBy:
+        username: admin
+      revision: 6794204361fc67dde4413f59f330e5250510534c
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    - deployStartedAt: "2026-02-14T18:20:31Z"
+      deployedAt: "2026-02-14T18:20:32Z"
+      id: 1
+      initiatedBy:
+        username: admin
+      revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - values-staging.yaml
+        path: helm/frontend
+        repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+        targetRevision: staging
+    operationState:
+      finishedAt: "2026-02-14T18:20:32Z"
+      message: successfully synced (all tasks run)
+      operation:
+        initiatedBy:
+          username: admin
+        retry: {}
+        sync:
+          revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+          source:
+            helm:
+              valueFiles:
+              - values.yaml
+              - values-staging.yaml
+            path: helm/frontend
+            repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+            targetRevision: staging
+          syncStrategy:
+            hook: {}
+      phase: Succeeded
+      startedAt: "2026-02-14T18:20:31Z"
+      syncResult:
+        resources:
+        - group: ""
+          hookPhase: Running
+          kind: ServiceAccount
+          message: serviceaccount/frontend-staging unchanged
+          name: frontend-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: ""
+          hookPhase: Running
+          kind: Service
+          message: service/frontend-staging unchanged
+          name: frontend-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: apps
+          hookPhase: Running
+          images:
+          - devopsacr26349.azurecr.io/frontend:6794204
+          kind: Deployment
+          message: deployment.apps/frontend-staging configured
+          name: frontend-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        - group: networking.k8s.io
+          hookPhase: Running
+          kind: Ingress
+          message: ingress.networking.k8s.io/frontend-staging unchanged
+          name: frontend-staging
+          namespace: staging
+          status: Synced
+          syncPhase: Sync
+          version: v1
+        revision: 80f79fd62b404c2353b1b09fde501fd596a584e0
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+    reconciledAt: "2026-02-14T19:22:27Z"
+    resourceHealthSource: appTree
+    resources:
+    - kind: Service
+      name: frontend-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - kind: ServiceAccount
+      name: frontend-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: apps
+      kind: Deployment
+      name: frontend-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    - group: networking.k8s.io
+      kind: Ingress
+      name: frontend-staging
+      namespace: staging
+      status: Synced
+      version: v1
+    sourceHydrator: {}
+    sourceType: Helm
+    summary:
+      externalURLs:
+      - http://staging.52.174.76.163.nip.io/
+      images:
+      - devopsacr26349.azurecr.io/frontend:6794204
+    sync:
+      comparedTo:
+        destination:
+          namespace: staging
+          server: https://kubernetes.default.svc
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+            - values-staging.yaml
+          path: helm/frontend
+          repoURL: https://github.com/saeedgebaly/cloud-native-devops-platform-
+          targetRevision: staging
+      revision: 868217dc4696596e2e6a5cbaec5e9023f22435ee
+      status: Synced
+kind: List
+metadata:
+  resourceVersion: ""
