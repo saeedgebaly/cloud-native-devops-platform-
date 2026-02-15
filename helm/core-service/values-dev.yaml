@@ -10,7 +10,7 @@ env:
   - name: AUTH_SERVICE_URL
     value: http://auth-service-dev:3000
   - name: DB_HOST
-    value: postgres-dev-postgresql
+    value: postgres-dev-postgresql.dev.svc.cluster.local
   - name: DB_USER
     value: coreuser
   - name: DB_PASSWORD
