@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import axios from 'axios';
-import { Client } from 'pg';
+import { Pool } from 'pg';
 
 
 @Controller('core')
@@ -31,23 +31,28 @@ export class CoreController {
 
     @Get('db-check')
     async dbCheck() {
-        const client = new Client({
-            host: process.env.DATABASE_HOST,
-            port: Number(process.env.DATABASE_PORT),
-            user: process.env.DATABASE_USER,
-            password: process.env.DATABASE_PASSWORD,
-            database: process.env.DATABASE_NAME,
+        const pool = new Pool({
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            port: 5432,
         });
 
-        await client.connect();
+        try {
+            const result = await pool.query('SELECT NOW()');
+            await pool.end();
 
-        const result = await client.query('SELECT NOW()');
-
-        await client.end();
-
-        return {
-            dbTime: result.rows[0],
-        };
+            return {
+                message: 'Database connected successfully',
+                time: result.rows[0].now,
+            };
+        } catch (error) {
+            return {
+                message: 'Database connection failed',
+                error: error.message,
+            };
+        }
     }
 
 
