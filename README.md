@@ -1,210 +1,101 @@
-![alt text](diagram-export-2-14-2026-10_35_19-PM.png)
-![alt text](diagram-export-2-14-2026-10_36_31-PM.png)
-🚀 Cloud Native DevOps Platform
+# Cloud Native DevOps Platform
 
-Production-grade Cloud Native microservices platform built on Azure Kubernetes Service (AKS) using GitOps, Helm, and ArgoCD with full CI/CD automation.
+This project is a comprehensive example of a modern, cloud-native application utilizing Microservices architecture, deployed on Kubernetes using GitOps principles with ArgoCD.
 
-📌 Overview
+![System Architecture Diagram](diagram-export-2-14-2026-10_35_19-PM.png)
 
-This project demonstrates a complete DevOps lifecycle:
+## 🚀 Project Overview
 
-Microservices architecture (Frontend + Core + Auth)
+The **Cloud Native DevOps Platform** demonstrates a complete end-to-end DevOps pipeline and microservices architecture. It showcases how to build, containerize, and deploy a scalable application using industry-standard tools and practices.
 
-Containerization with Docker
-CI with GitHub Actions
-Image registry via Azure Container Registry (ACR)
-GitOps deployment using ArgoCD
-Multi-environment setup (dev / staging / prod)
-Kubernetes-native configuration with Helm
-Ingress-based routing
-Resilience layer between services
-Monitoring integration
-Persistent database layer (PostgreSQL)
+### Key Features
+- **Microservices Architecture**: Decoupled services for better scalability and maintainability.
+- **Kubernetes Native**: Fully designed to run on Kubernetes clusters.
+- **GitOps Deployment**: Automated continuous delivery using ArgoCD for Dev, Staging, and Production environments.
+- **Infrastructure as Code**: Helm charts used for packaging and deploying services.
+- **Scalable Database**: PostgreSQL integration for persistent data storage.
 
-This repository simulates a real-world production-ready DevOps workflow.
-----------------------------------------------------------------
-🏗 Architecture
+---
 
-The system is composed of:
+## 🏗️ Architecture Explained
 
-Frontend (Static Web UI)
-Core Service (Business Logic)
-Auth Service (Authentication / Identity)
-PostgreSQL (Stateful database)
-NGINX Ingress Controller
-ArgoCD GitOps Controller
-Azure Monitor + Log Analytics
+The diagram above illustrates the system's architecture and traffic flow. Here is a breakdown of the components:
 
-High-Level Flow
-User → Public IP → Azure Load Balancer → NGINX Ingress → frontend → core-service → auth-service → PostgreSQL
-----------------------------------------------------------------
-CI/CD Flow:
+### 1. **Traffic Entry (Ingress)**
+- **User Traffic**: All external requests enter the cluster through an **Ingress Controller**.
+- **Routing**: The Ingress routes traffic based on the URL path to the appropriate service (e.g., `/auth` to Auth Service, `/core` to Core Service, `/` to Frontend).
 
-Developer pushes code → GitHub Actions triggers → Builds Docker images → Pushes to ACR → ArgoCD detects changes → Syncs to Kubernetes → Helm deploys updates
-----------------------------------------------------------------
-Environments
-Single AKS cluster with namespace isolation:
+### 2. **Microservices**
+The application is composed of three main services:
 
-dev
+*   **Frontend Service** (`frontend`)
+    *   **Role**: Serves the user interface.
+    *   **Tech Stack**: Nginx (serving static HTML/JS).
+    *   **Function**: The entry point for users to interact with the platform.
 
-staging
+*   **Authentication Service** (`auth-service`)
+    *   **Role**: Manages user identity, login, and registration.
+    *   **Tech Stack**: Node.js (NestJS) + TypeScript.
+    *   **Function**: Issues JWT tokens and validates user credentials.
 
-prod
+*   **Core Service** (`core-service`)
+    *   **Role**: Handles the main business logic of the application.
+    *   **Tech Stack**: Node.js (NestJS) + TypeScript + Prisma ORM.
+    *   **Database**: Connects to **PostgreSQL** for storing application data.
+    *   **Integration**: Communicates with the **Auth Service** to verify user tokens before processing requests.
 
-Each environment has:
+### 3. **Infrastructure & DevOps**
+*   **ArgoCD**: The GitOps controller that monitors this repository. It ensures the state of the Kubernetes cluster (Dev, Staging, Prod) matches the configuration in code.
+*   **Helm**: Used to template and manage the Kubernetes manifests for each service, allowing for easy configuration across different environments.
+*   **Azure Container Registry (ACR)**: Stores the Docker images for the services.
 
-Independent deployments
+---
 
-Separate Helm values files
+## 🛠️ Tech Stack
 
-Isolated ingress routing
+| Category | Technologies |
+|----------|--------------|
+| **Compute** | Kubernetes (K8s) |
+| **CICD / GitOps** | ArgoCD, GitHub Actions (implied) |
+| **Package Management** | Helm |
+| **Backend** | Node.js, NestJS, TypeScript |
+| **Frontend** | Nginx (Static) |
+| **Database** | PostgreSQL |
+| **Cloud Provider** | Azure (ACR, AKS implied) |
 
-Dedicated scaling configuration
-----------------------------------------------------------------
-🔄 CI/CD Pipeline
+---
 
-Each microservice has its own GitHub Actions workflow:
+## 📂 Project Structure
 
-On push:
+```bash
+├── services/               # Source code for microservices
+│   ├── auth-service/       # Authentication service (NestJS)
+│   ├── core-service/       # Business logic service (NestJS + Postgres)
+│   └── frontend/           # Frontend web server (Nginx)
+├── helm/                   # Helm charts for Kubernetes deployment
+│   ├── auth-service/
+│   ├── core-service/
+│   └── frontend/
+├── argocd-apps.yaml        # ArgoCD application definitions (Dev, Staging, Prod)
+└── gitops/                 # GitOps configuration and manifests
+```
 
-Build Docker image
+## 🚀 Getting Started
 
-Tag image with Git SHA
+To deploy this project, ensure you have a Kubernetes cluster and ArgoCD installed.
 
-Push image to ACR
+1.  **Clone the Repository**:
+    ```bash
+    git clone https://github.com/saeedgebaly/cloud-native-devops-platform-.git
+    ```
 
-Update Helm values file
+2.  **Apply ArgoCD Application**:
+    ```bash
+    kubectl apply -f argocd-apps.yaml
+    ```
+    This will instruct ArgoCD to deploy the applications to your cluster based on the configuration in the `helm/` directory.
 
-Commit updated image tag
+3.  **Access the Application**:
+    Once deployed, the services will be available via the configured Ingress hosts (e.g., `*.nip.io` domains as defined in `values.yaml`).
 
-ArgoCD auto-sync deploys new version
-
-Fully automated GitOps deployment.
------------------------------------------------------------
-🔐 Security Layer
-
-Kubernetes Secrets for credentials
-
-Network Policies between services
-
-Non-root containers
-
-Read-only root filesystem
-
-Resource limits
-
-Namespace isolation
-----------------------------------------------------------------
-♻ Resilience Strategy
-
-Core service implements:
-
-Timeout control
-
-Retry mechanism
-
-Graceful fallback response
-
-Degraded mode handling
-
-This prevents cascading failure if Auth service is temporarily unavailable.
---------------------------------------------------------------------------
-📦 Helm Structure
-
-helm/
-  auth-service/
-  core-service/
-  frontend/
-
-
-Each chart contains:
-
-Deployment
-
-Service
-
-Ingress
-
-HPA
-
-NetworkPolicy
-
-ServiceAccount
-
-Values per environment
------------------------------------------------------------------------------
-📊 Monitoring
-
-Azure Monitor
-
-Log Analytics
-
-Kubernetes health probes
-
-Liveness & Readiness checks
-----------------------------------------------------------------
-🗄 Database Layer
-
-PostgreSQL deployed as:
-
-StatefulSet
-
-Persistent Volume
-
-Secret-based credentials
-
-Internal service access
-----------------------------------------------------------------
-🚀 Example Endpoints
-
-http://dev.<ip>.nip.io/
-
-http://staging.<ip>.nip.io/
-
-http://api.<ip>.nip.io/core/check-auth
-----------------------------------------------------------------
-📂 Repository Structure
-services/
-  auth-service/
-  core-service/
-  frontend/
-
-helm/
-  auth-service/
-  core-service/
-  frontend/
-
-.github/workflows/
-  auth-service.yml
-  core-service.yml
-  frontend.yml
-----------------------------------------------------------------
-🧠 What This Project Demonstrates
-
- - Microservices Architecture
- - Kubernetes Production Practices
- - GitOps Workflow
- - CI/CD Automation
- - Multi-Environment Deployment
- - Resilience Patterns
- - Infrastructure as Code
- - Secure Containerization
- - Cloud-Native Design
-----------------------------------------------------------------
-🧠 What This Project Demonstrates
-
- - Microservices Architecture
- - Kubernetes Production Practices
- - GitOps Workflow
- - CI/CD Automation
- - Multi-Environment Deployment
- - Resilience Patterns
- - Infrastructure as Code
- - Secure Containerization
- - Cloud-Native Design
-----------------------------------------------------------------
-👨‍💻 Author
-
-Saeed Nabil Saeed El-Gebaly
-Cloud & DevOps Engineer
-AWS | Azure | Kubernetes | GitOps
+![Deployment Diagram](diagram-export-2-14-2026-10_36_31-PM.png)

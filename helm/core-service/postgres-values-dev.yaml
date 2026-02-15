@@ -1,0 +1,8 @@
+auth:
+  username: coreuser
+  password: corepassword
+  database: coredb
+
+primary:
+  persistence:
+    enabled: false
