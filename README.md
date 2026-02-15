@@ -110,6 +110,7 @@ Degraded mode handling
 This prevents cascading failure if Auth service is temporarily unavailable.
 --------------------------------------------------------------------------
 📦 Helm Structure
+
 helm/
   auth-service/
   core-service/
@@ -155,8 +156,11 @@ Secret-based credentials
 Internal service access
 ----------------------------------------------------------------
 🚀 Example Endpoints
+
 http://dev.<ip>.nip.io/
+
 http://staging.<ip>.nip.io/
+
 http://api.<ip>.nip.io/core/check-auth
 ----------------------------------------------------------------
 📂 Repository Structure
@@ -177,27 +181,27 @@ helm/
 ----------------------------------------------------------------
 🧠 What This Project Demonstrates
 
-✔ Microservices Architecture
-✔ Kubernetes Production Practices
-✔ GitOps Workflow
-✔ CI/CD Automation
-✔ Multi-Environment Deployment
-✔ Resilience Patterns
-✔ Infrastructure as Code
-✔ Secure Containerization
-✔ Cloud-Native Design
+ - Microservices Architecture
+ - Kubernetes Production Practices
+ - GitOps Workflow
+ - CI/CD Automation
+ - Multi-Environment Deployment
+ - Resilience Patterns
+ - Infrastructure as Code
+ - Secure Containerization
+ - Cloud-Native Design
 ----------------------------------------------------------------
 🧠 What This Project Demonstrates
 
-✔ Microservices Architecture
-✔ Kubernetes Production Practices
-✔ GitOps Workflow
-✔ CI/CD Automation
-✔ Multi-Environment Deployment
-✔ Resilience Patterns
-✔ Infrastructure as Code
-✔ Secure Containerization
-✔ Cloud-Native Design
+ - Microservices Architecture
+ - Kubernetes Production Practices
+ - GitOps Workflow
+ - CI/CD Automation
+ - Multi-Environment Deployment
+ - Resilience Patterns
+ - Infrastructure as Code
+ - Secure Containerization
+ - Cloud-Native Design
 ----------------------------------------------------------------
 👨‍💻 Author
 
