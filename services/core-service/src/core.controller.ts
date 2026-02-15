@@ -32,12 +32,13 @@ export class CoreController {
 
     @Get('db-check')
     async dbCheck() {
+
+        const connectionString = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:5432/${process.env.DB_NAME}`;
+
+        console.log("Connecting to:", connectionString);
+
         const pool = new Pool({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            port: 5432,
+            connectionString,
         });
 
         try {
@@ -48,6 +49,7 @@ export class CoreController {
                 message: 'Database connected successfully',
                 time: result.rows[0].now,
             };
+
         } catch (error) {
             const message =
                 error instanceof Error ? error.message : 'Unknown error';
@@ -58,6 +60,7 @@ export class CoreController {
             };
         }
     }
+
 
 
 
