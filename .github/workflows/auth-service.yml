@@ -40,31 +40,7 @@ jobs:
           username: ${{ secrets.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      - name: extract git SHA
-        id: vars
-        run: echo "SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
       - name: build and push image
         run: |
-          docker build -t devopsacr24319.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }} ./services/auth-service
-          docker push devopsacr24319.azurecr.io/auth-service:${{ steps.vars.outputs.SHA }}
-
-      - name: commit and push changes
-        run: |
-          git config user.email "github-actions@github.com"
-          git config user.name "github-actions"
-
-          BRANCH=${GITHUB_REF##*/}
-
-          if [ "$BRANCH" = "main" ]; then
-            VALUES_FILE="helm/auth-service/values-dev.yaml"
-          elif [ "$BRANCH" = "staging" ]; then
-            VALUES_FILE="helm/auth-service/values-staging.yaml"
-          elif [ "$BRANCH" = "prod" ]; then
-            VALUES_FILE="helm/auth-service/values-prod.yaml"
-          fi
-          git pull origin $BRANCH --rebase
-          sed -i "s/tag: .*/tag: \"${{ steps.vars.outputs.SHA }}\"/" $VALUES_FILE
-          git add $VALUES_FILE
-          git diff --cached --quiet || git commit -m "Update auth-service image tag to ${{ steps.vars.outputs.SHA }}"
-          git push origin $BRANCH
+          docker build -t devopsacr24319.azurecr.io/auth-service:latest ./services/auth-service
+          docker push devopsacr24319.azurecr.io/auth-service:latest
