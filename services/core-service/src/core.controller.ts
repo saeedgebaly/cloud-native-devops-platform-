@@ -12,25 +12,23 @@ export class CoreController {
 
         const url = `${baseUrl}/auth/ping`;
 
-        let lastError: any;
+        let lastError: unknown;
 
         for (let i = 0; i <= retries; i++) {
             try {
                 return await axios.get(url, { timeout: 2000 });
             } catch (error) {
-                const message =
-                    error instanceof Error ? error.message : 'Unknown error';
+                lastError = error;
 
-                return {
-                    message: 'Database connection failed',
-                    error: message,
-                };
+                if (i < retries) {
+                    await new Promise(res => setTimeout(res, 500 * (i + 1)));
+                }
             }
-
         }
 
         throw lastError;
     }
+
 
     @Get('db-check')
     async dbCheck() {
@@ -51,12 +49,16 @@ export class CoreController {
                 time: result.rows[0].now,
             };
         } catch (error) {
+            const message =
+                error instanceof Error ? error.message : 'Unknown error';
+
             return {
                 message: 'Database connection failed',
-                error: error.message,
+                error: message,
             };
         }
     }
+
 
 
     @Get('check-auth')
